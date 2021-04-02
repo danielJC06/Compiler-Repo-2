@@ -1,0 +1,37 @@
+/* This is the test case file. Here is the requirement:
+    1. The test case file must be a valid Tiger program. No syntax errors allowed.
+    2. The table below has two columns. The first column specifies Tiger construct that must be covered, and
+       the second column gives the line # of the statement that is used to test the construct. Please fill the second
+       column after you have designed all test cases successfully.
+       
+        Tiger Construct to be covered                                            Line # of the statement
+     Two variables with the same name are defined at the same level                      #15, 16
+     Two types with the same name are defined at the same level                          #17, 18
+     Two variables with the same name are defined at the different nesting levels        #19, 23
+     Two types with the same name are defined at the different nesting levels            #20, 24
+     An undefined variable is used                                                       #29
+     An undefined type is used                                                           #29
+     An undefined variable is used in function parameter list                            #29
+*/
+
+/*Put your tiger program here*/
+
+
+let
+   var A := 1
+   var A := 3
+   type array = array of int
+   type array = array of string
+   var B := 2
+   type myarray = array of string 
+   function nAdd(n: int) =
+   	        let
+                var B := 4
+                type myarray = array of int
+                in
+                n + B
+                end
+in
+   nAdd(C) + D + empty[14]
+
+end
