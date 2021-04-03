@@ -175,8 +175,7 @@ namespace semantics
 	const types::Type* TypeChecking::visit(const VarExp *e)
 	{
 		/* check the variable */
-		
-		return NULL;
+		return visit(e->getVar());
 	}
 
 	const types::Type* TypeChecking::visit(const NilExp *e)
@@ -203,6 +202,14 @@ namespace semantics
 			step 1: check the function name
 			step 2: check every argument expression
 		*/
+		string name = e->getFunc();
+		if (env.getVarEnv()->contains(name)) {
+			const types::Type* t = NULL;
+
+		}
+		else {
+			error(e, "Undefined function name.");
+		}
 		return NULL;
 	}
 
