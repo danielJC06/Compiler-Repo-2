@@ -7,12 +7,12 @@ Role
 
 Progress 
     Tristan Lotivio
-        His/her marjor work since last time the time log has been submitted
+        SymbolTable.cpp completed and to spec of the original timelog
     Darien Kidwell
         Initial Test cases, mentioned in the last time log, have been submitted
 
 Challenging Issues
-    No major problems have been encountered yet.
+    No major problems yet.
 
 Work to be done
     Tristan Lotivio
@@ -23,7 +23,6 @@ Work to be done
 
 Meet deadline
     Tristan Lotivio
-        Will the developer(s) be able to finish and submit the work before the next
-	deadline?  If no, please explain why?
+        Yes, the programmer will be able to finish all reports by the given deadline.
      Darien Kidwell
         Yes, the tester will be able to finish the Test Report by the deadline.
