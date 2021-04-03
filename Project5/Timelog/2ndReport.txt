@@ -9,7 +9,7 @@ Progress
     Tristan Lotivio
         His/her marjor work since last time the time log has been submitted
     Darien Kidwell
-        His/her marjor work since last time the time log has been submitted
+        Initial Test cases, mentioned in the last time log, have been submitted
 
 Challenging Issues
     No major problems have been encountered yet.
@@ -26,5 +26,4 @@ Meet deadline
         Will the developer(s) be able to finish and submit the work before the next
 	deadline?  If no, please explain why?
      Darien Kidwell
-        Will the tester(s) be able to finish and submit the work before the next
-	deadline?  If no, please explain why?
+        Yes, the tester will be able to finish the Test Report by the deadline.
