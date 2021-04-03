@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <FlexLexer.h>
+#include "FlexLexer.h"
 #include "ErrorMsg.h"
 #include "Env.h"
 #include "Print.h"

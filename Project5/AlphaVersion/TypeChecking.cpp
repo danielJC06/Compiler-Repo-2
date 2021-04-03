@@ -1,3 +1,8 @@
+/*Tristan Lotivio*/
+/*Project 5: TypeChecking.cpp*/
+/* 4/7/2021 */
+/* Dr. Zhijiang Dong */
+
 #include <sstream>
 #include "TypeChecking.h"
 #include "Absyn.h"
@@ -131,13 +136,21 @@ namespace semantics
 	const types::Type* TypeChecking::visit(const SimpleVar *v)
 	{
 		/* check if the variable is defined by looking up the symbol table*/
-		return NULL;
+		if (env.getVarEnv()->contains(v->getName())) {
+			return env.getVarEnv()->lookup(v->getName()).info;
+		}
+		else {
+			error(v, "undefined variable");
+			return NULL;
+		}
+		
 	}
 
 	const types::Type* TypeChecking::visit(const SubscriptVar *v)
 	{
 		/* check both the variable and index */
-		return NULL;
+		visit(v->getIndex());
+		return visit(v->getVar());
 	}
 
 
@@ -145,12 +158,24 @@ namespace semantics
 	const types::Type* TypeChecking::visit(const OpExp *e)
 	{
 		/* check both operands */
-		return NULL;
+		const types::Type* t1 = visit(e->getLeft());
+		const types::Type* t2 = visit(e->getRight());
+
+		if (t1 == t2) {
+			return t1;
+		}
+		else {
+			error(e, "undefined variable");
+			return NULL;
+		}
+
+		
 	}
 
 	const types::Type* TypeChecking::visit(const VarExp *e)
 	{
 		/* check the variable */
+		
 		return NULL;
 	}
 

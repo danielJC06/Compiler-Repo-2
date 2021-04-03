@@ -1,8 +1,29 @@
 ﻿  Env.cpp
   main.cpp
-C:\Users\darie\OneDrive\Documents\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\main.cpp(4,10): fatal error C1083: Cannot open include file: 'FlexLexer.h': No such file or directory
   Print.cpp
   tiger.tab.cc
-C:\Users\darie\OneDrive\Documents\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\tiger.yy(8,10): fatal error C1083: Cannot open include file: 'FlexLexer.h': No such file or directory
+D:\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\tiger.tab.cc(954,2): warning C4065: switch statement contains 'default' but no 'case' labels
+D:\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\tiger.tab.cc(1355,2): warning C4065: switch statement contains 'default' but no 'case' labels
   TypeChecking.cpp
   Generating Code...
+  lex.yy.cc
+D:\Visual Studio 2019\IDE\VC\Tools\MSVC\14.28.29333\include\stdint.h(49,1): warning C4005: 'INT8_MIN': macro redefinition
+D:\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\lex.yy.cc(62): message : see previous definition of 'INT8_MIN'
+D:\Visual Studio 2019\IDE\VC\Tools\MSVC\14.28.29333\include\stdint.h(50,1): warning C4005: 'INT16_MIN': macro redefinition
+D:\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\lex.yy.cc(65): message : see previous definition of 'INT16_MIN'
+D:\Visual Studio 2019\IDE\VC\Tools\MSVC\14.28.29333\include\stdint.h(51,1): warning C4005: 'INT32_MIN': macro redefinition
+D:\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\lex.yy.cc(68): message : see previous definition of 'INT32_MIN'
+D:\Visual Studio 2019\IDE\VC\Tools\MSVC\14.28.29333\include\stdint.h(53,1): warning C4005: 'INT8_MAX': macro redefinition
+D:\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\lex.yy.cc(71): message : see previous definition of 'INT8_MAX'
+D:\Visual Studio 2019\IDE\VC\Tools\MSVC\14.28.29333\include\stdint.h(54,1): warning C4005: 'INT16_MAX': macro redefinition
+D:\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\lex.yy.cc(74): message : see previous definition of 'INT16_MAX'
+D:\Visual Studio 2019\IDE\VC\Tools\MSVC\14.28.29333\include\stdint.h(55,1): warning C4005: 'INT32_MAX': macro redefinition
+D:\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\lex.yy.cc(77): message : see previous definition of 'INT32_MAX'
+D:\Visual Studio 2019\IDE\VC\Tools\MSVC\14.28.29333\include\stdint.h(57,1): warning C4005: 'UINT8_MAX': macro redefinition
+D:\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\lex.yy.cc(80): message : see previous definition of 'UINT8_MAX'
+D:\Visual Studio 2019\IDE\VC\Tools\MSVC\14.28.29333\include\stdint.h(58,1): warning C4005: 'UINT16_MAX': macro redefinition
+D:\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\lex.yy.cc(83): message : see previous definition of 'UINT16_MAX'
+D:\Visual Studio 2019\IDE\VC\Tools\MSVC\14.28.29333\include\stdint.h(59,1): warning C4005: 'UINT32_MAX': macro redefinition
+D:\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\lex.yy.cc(86): message : see previous definition of 'UINT32_MAX'
+D:\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\MainDriver\lex.yy.cc(1381,21): warning C4244: 'return': conversion from 'std::streamsize' to 'int', possible loss of data
+  MainDriver.vcxproj -> D:\GitHub\Compiler-Repo-2\Project5\SymbolTableProject\Debug\MainDriver.exe
