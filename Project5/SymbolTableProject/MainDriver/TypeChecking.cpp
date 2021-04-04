@@ -204,36 +204,66 @@ namespace semantics
 		*/
 		string name = e->getFunc();
 		if (env.getVarEnv()->contains(name)) {
-			const types::Type* t = NULL;
-
+			const types::Type* ptr = NULL;
+			const ExpList* args = e->getArgs();
+			while (args != NULL) {
+				ptr = visit(args->getHead());
+				args = args->getRest();
+			}
+			return ptr;
 		}
 		else {
 			error(e, "Undefined function name.");
+			return NULL;
 		}
-		return NULL;
+		
 	}
 
 	const types::Type* TypeChecking::visit(const SeqExp *e)
 	{
 		/*	check every expression in the sequence */
-		return NULL;
+		const types::Type* ptr = NULL;
+		const ExpList* exp = e->getList();
+		while (exp != NULL) {
+			ptr = visit(exp->getHead());
+			exp = exp->getRest();
+		}
+		return ptr;
 	}
 
 	const types::Type* TypeChecking::visit(const AssignExp *e)
 	{
 		/* check both variable and expression */
-		return NULL;
-	}
+		visit(e->getVar());
+		return visit(e->getExp());
+	} 
 
 	const types::Type* TypeChecking::visit(const IfExp *e)
 	{
 		/* check test condition, then-clause, and else-clause (if exists) */
+		visit(e->getTest());
+		
+		
+		visit(e->getThenClause());
+		
+
+		visit(e->getElseClause());
+		
+
 		return NULL;
 	}
 
 	const types::Type* TypeChecking::visit(const WhileExp *e)
 	{
 		/* check both the test condition and loop-body expression */
+		const types::Type* ptr = visit(e->getTest());
+		if (ptr != NULL)
+			return ptr;
+
+		ptr = visit(e->getBody());
+		if (ptr != NULL)
+			return ptr;
+
 		return NULL;
 	}
 
@@ -244,6 +274,13 @@ namespace semantics
 			step 2: check var declaration, upper bound expression, and loop-body
 			step 3: end the scope
 		*/
+		env.getVarEnv()->beginScope();
+
+		visit(e->getVar());
+		visit(e->getHi());
+		visit(e->getBody());
+
+		env.getVarEnv()->endScope();
 		return NULL;
 	}
 
@@ -261,6 +298,21 @@ namespace semantics
 			step 3: check the body expression
 			step 4: end the scope for both symbol tables
 		*/
+		env.getVarEnv()->beginScope();
+		env.getTypeEnv()->beginScope();
+
+		const absyn::DecList* decs = e->getDecs();
+		
+		while (decs != NULL) {
+			visit(decs->getHead());
+			decs = decs->getRest();
+		}
+
+		visit(e->getBody());
+
+		env.getVarEnv()->endScope();
+		env.getTypeEnv()->endScope();
+
 		return NULL;
 	}
 
@@ -271,6 +323,16 @@ namespace semantics
 			step 2: check the size expression
 			step 3: check the initial expression
 		*/
+		
+		if (env.getTypeEnv()->contains(e->getType())) {
+			visit(e->getSize());
+			return visit(e->getInit());
+		}
+		else {
+			error(e, "undefined array");
+			return NULL;
+		}
+
 		return NULL;
 	}
 
@@ -281,7 +343,15 @@ namespace semantics
 			step 2: if the type information is provided, check the type
 			step 3: check the initial expression
 		*/
-		return NULL;
+
+		insertVar(d->getName(), symbol::SymTabEntry(env.getVarEnv()->getLevel(), NULL, d));
+
+		if (d->getType() != NULL)
+			visit(d->getType());
+
+		return visit(d->getInit());
+
+		
 	}
 
 	const types::Type* TypeChecking::visit(const TypeDec *d)
@@ -290,7 +360,10 @@ namespace semantics
 			step 1: insert the name of the new type to the type symbol table
 			step 2: check the type information of the new type
 		*/
-		return NULL;
+
+		insertType(d->getName(), symbol::SymTabEntry(env.getTypeEnv()->getLevel(), NULL, d));
+
+		return visit(d->getTy());
 	}
 
 	//functions checking semantic error of different type of Ty nodes
@@ -299,7 +372,14 @@ namespace semantics
 		/*
 			step 1: check if the type name is defined by looking up the type symbol table
 		*/
-		return NULL;
+		string name = t->getName();
+		if (env.getTypeEnv()->contains(name)) {
+			return env.getTypeEnv()->lookup(name).info;
+		}
+		else {
+			error(t, "undefined type");
+			return NULL;
+		}		
 	}
 
 
@@ -308,7 +388,15 @@ namespace semantics
 		/*
 			step 1: Check the name of the array type by looking up the type symbol table
 		*/
-		return NULL;
+		string name = t->getName();
+		if (env.getTypeEnv()->contains(name)) {
+			return env.getTypeEnv()->lookup(name).info;
+		}
+		else {
+			error(t, "undefined type");
+			return NULL;
+		}
+		
 	}
 
 
