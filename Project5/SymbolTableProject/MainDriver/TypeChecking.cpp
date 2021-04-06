@@ -2,6 +2,7 @@
 /*Project 5: TypeChecking.cpp*/
 /* 4/7/2021 */
 /* Dr. Zhijiang Dong */
+/*implementation for typechecking.cpp which checks the types of the symbol table*/
 
 #include <sstream>
 #include "TypeChecking.h"
@@ -136,8 +137,8 @@ namespace semantics
 	const types::Type* TypeChecking::visit(const SimpleVar *v)
 	{
 		/* check if the variable is defined by looking up the symbol table*/
-		if (env.getVarEnv()->contains(v->getName())) {
-			return env.getVarEnv()->lookup(v->getName()).info;
+		if (env.getVarEnv()->contains(v->getName()) != NULL) {
+			return NULL;
 		}
 		else {
 			error(v, "undefined variable");
@@ -150,7 +151,8 @@ namespace semantics
 	{
 		/* check both the variable and index */
 		visit(v->getIndex());
-		return visit(v->getVar());
+		visit(v->getVar());
+		return NULL;
 	}
 
 
@@ -158,24 +160,18 @@ namespace semantics
 	const types::Type* TypeChecking::visit(const OpExp *e)
 	{
 		/* check both operands */
-		const types::Type* t1 = visit(e->getLeft());
-		const types::Type* t2 = visit(e->getRight());
+		visit(e->getLeft());
+		visit(e->getRight());
 
-		if (t1 == t2) {
-			return t1;
-		}
-		else {
-			error(e, "undefined variable");
-			return NULL;
-		}
 
-		
+		return NULL;
 	}
 
 	const types::Type* TypeChecking::visit(const VarExp *e)
 	{
 		/* check the variable */
-		return visit(e->getVar());
+		visit(e->getVar());
+		return NULL;
 	}
 
 	const types::Type* TypeChecking::visit(const NilExp *e)
@@ -202,6 +198,7 @@ namespace semantics
 			step 1: check the function name
 			step 2: check every argument expression
 		*/
+		//name of the function is verified in the symbol table then the arguments are visited
 		string name = e->getFunc();
 		if (env.getVarEnv()->contains(name)) {
 			const types::Type* ptr = NULL;
@@ -210,12 +207,14 @@ namespace semantics
 				ptr = visit(args->getHead());
 				args = args->getRest();
 			}
-			return ptr;
+			//return ptr;
 		}
+		//return an error if the function name isn't found
 		else {
 			error(e, "Undefined function name.");
-			return NULL;
+			//return NULL;
 		}
+		return NULL;
 		
 	}
 
@@ -224,36 +223,33 @@ namespace semantics
 		/*	check every expression in the sequence */
 		const types::Type* ptr = NULL;
 		const ExpList* exp = e->getList();
+
+		//loop that checks every expression in the sequence
 		while (exp != NULL) {
 			ptr = visit(exp->getHead());
 			exp = exp->getRest();
 		}
-		return ptr;
+		return NULL;
 	}
 
 	const types::Type* TypeChecking::visit(const AssignExp *e)
 	{
 		/* check both variable and expression */
 		visit(e->getVar());
-		return visit(e->getExp());
+		visit(e->getExp());
+		return NULL;
 	} 
 
 	const types::Type* TypeChecking::visit(const IfExp *e)
 	{
 		/* check test condition, then-clause, and else-clause (if exists) */
-		const types::Type* test = visit(e->getTest());
-		if (test != NULL) 
-			return test;
+		
+		visit(e->getTest());
+		visit(e->getThenClause());
+		if (e->getElseClause() != nullptr)
+			visit(e->getElseClause());
 		
 		
-		const types::Type* then = visit(e->getThenClause());
-		if (then != NULL) 
-			return then;
-		
-		
-		const types::Type* elseE = visit(e->getElseClause());
-		if (elseE != NULL) 
-			return elseE;
 		
 		
 		return NULL;
@@ -262,13 +258,9 @@ namespace semantics
 	const types::Type* TypeChecking::visit(const WhileExp *e)
 	{
 		/* check both the test condition and loop-body expression */
-		const types::Type* ptr = visit(e->getTest());
-		if (ptr != NULL)
-			return ptr;
+		visit(e->getTest());
+		visit(e->getBody());
 
-		ptr = visit(e->getBody());
-		if (ptr != NULL)
-			return ptr;
 
 		return NULL;
 	}
@@ -280,12 +272,16 @@ namespace semantics
 			step 2: check var declaration, upper bound expression, and loop-body
 			step 3: end the scope
 		*/
+
+		//start scope
 		env.getVarEnv()->beginScope();
 
+		//visit everything
 		visit(e->getVar());
 		visit(e->getHi());
 		visit(e->getBody());
 
+		//end scope
 		env.getVarEnv()->endScope();
 		return NULL;
 	}
@@ -304,18 +300,22 @@ namespace semantics
 			step 3: check the body expression
 			step 4: end the scope for both symbol tables
 		*/
+
+		//start all the scopes
 		env.getVarEnv()->beginScope();
 		env.getTypeEnv()->beginScope();
 
+		//get the dec list the check everythin
 		const absyn::DecList* decs = e->getDecs();
-		
 		while (decs != NULL) {
 			visit(decs->getHead());
 			decs = decs->getRest();
 		}
 
+		//check the body 
 		visit(e->getBody());
 
+		//end all the scopes
 		env.getVarEnv()->endScope();
 		env.getTypeEnv()->endScope();
 
@@ -330,10 +330,15 @@ namespace semantics
 			step 3: check the initial expression
 		*/
 		
+		//verify array exists
 		if (env.getTypeEnv()->contains(e->getType())) {
+			//get the size and the things inside the array
 			visit(e->getSize());
-			return visit(e->getInit());
+			visit(e->getInit());
+			return NULL;
 		}
+
+		//error if the array doesn't exist 
 		else {
 			error(e, "undefined array");
 			return NULL;
@@ -350,12 +355,16 @@ namespace semantics
 			step 3: check the initial expression
 		*/
 
+		//put the variable in 
 		insertVar(d->getName(), symbol::SymTabEntry(env.getVarEnv()->getLevel(), NULL, d));
 
+		//do get the type
 		if (d->getType() != NULL)
 			visit(d->getType());
 
-		return visit(d->getInit());
+		//check the init
+		visit(d->getInit());
+		return NULL;
 
 		
 	}
@@ -367,9 +376,12 @@ namespace semantics
 			step 2: check the type information of the new type
 		*/
 
+		//insert the type
 		insertType(d->getName(), symbol::SymTabEntry(env.getTypeEnv()->getLevel(), NULL, d));
 
-		return visit(d->getTy());
+		//check the type
+		visit(d->getTy());
+		return NULL;
 	}
 
 	//functions checking semantic error of different type of Ty nodes
@@ -378,10 +390,14 @@ namespace semantics
 		/*
 			step 1: check if the type name is defined by looking up the type symbol table
 		*/
+
+		//check the name type
 		string name = t->getName();
 		if (env.getTypeEnv()->contains(name)) {
-			return env.getTypeEnv()->lookup(name).info;
+			return NULL;
 		}
+
+		//print the error if type isn't found
 		else {
 			error(t, "undefined type");
 			return NULL;
@@ -396,7 +412,7 @@ namespace semantics
 		*/
 		string name = t->getName();
 		if (env.getTypeEnv()->contains(name)) {
-			return env.getTypeEnv()->lookup(name).info;
+			return NULL;
 		}
 		else {
 			error(t, "undefined type");

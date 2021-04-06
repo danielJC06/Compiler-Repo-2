@@ -1,3 +1,9 @@
+/*Tristan Lotivio*/
+/*Project 5: TypeChecking.cpp*/
+/* 4/7/2021 */
+/* Dr. Zhijiang Dong */
+/*implementation for symboltable.cpp which is all the basic functionality for the symboltable hashtable*/
+
 #include <iostream>
 #include <sstream>
 
@@ -125,7 +131,9 @@ namespace symbol
 	{
 		/* put your implementation here */
 		for (Iterator it = tables.begin(); it != tables.end(); it++)
-		{
+		{	
+			//initiate the iterator and find the value
+			//return true if the value exists and false otherwise
 			HashTable& current = *it;
 			HashTable::iterator	vit = current.find(lexeme);
 
@@ -143,6 +151,9 @@ namespace symbol
 	bool SymbolTable<Entry>::localContains(string lexeme)
 	{
 		/* put your implementation here */
+		//in the specific table
+		//initiate the iterator and find the value
+		//return true if the value exists and false otherwise
 		Iterator it = tables.begin();
 		HashTable& current = *it;
 		HashTable::iterator	vit = current.find(lexeme);
@@ -159,6 +170,9 @@ namespace symbol
 	template<class Entry>
 	bool SymbolTable<Entry>::globalContains(string lexeme)
 	{
+		//at the last hashtable
+		//initiate the iterator and find the value
+		//return true if the value exists and false otherwise
 		HashTable current = *(tables.end());
 		HashTable::iterator it = current.begin();
 		while (it != current.end()) {
@@ -173,9 +187,12 @@ namespace symbol
 	template<class Entry>
 	void SymbolTable<Entry>::insert(string lexeme, const Entry value)
 	{
+		//if already inserted throw an error
 		if (localContains(lexeme)) {
 			throw runtime_error("Error: " + lexeme + "already exists in this current scope.");
 		}
+
+		//if else insert the lexeme
 		else {
 			Iterator it = tables.begin();
 			it->insert({ lexeme, value });
