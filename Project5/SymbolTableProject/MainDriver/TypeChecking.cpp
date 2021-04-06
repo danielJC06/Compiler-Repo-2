@@ -241,15 +241,21 @@ namespace semantics
 	const types::Type* TypeChecking::visit(const IfExp *e)
 	{
 		/* check test condition, then-clause, and else-clause (if exists) */
-		visit(e->getTest());
+		const types::Type* test = visit(e->getTest());
+		if (test != NULL) 
+			return test;
 		
 		
-		visit(e->getThenClause());
+		const types::Type* then = visit(e->getThenClause());
+		if (then != NULL) 
+			return then;
 		
-
-		visit(e->getElseClause());
 		
-
+		const types::Type* elseE = visit(e->getElseClause());
+		if (elseE != NULL) 
+			return elseE;
+		
+		
 		return NULL;
 	}
 

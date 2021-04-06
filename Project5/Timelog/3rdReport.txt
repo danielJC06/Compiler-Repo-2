@@ -1,0 +1,28 @@
+Report submitted at 2021-03-8 20:30
+
+Role
+    Assignment Leader: Daniel Cox
+    Programmer       : Tristan Lotivio
+    Tester           : Darien Kidwell
+
+Progress 
+    Tristan Lotivio
+        All programming for major required fields is complete outside of the if expression
+    Darien Kidwell
+        Initial Test cases, mentioned in the last time log, have been submitted
+
+Challenging Issues
+    have emailed professor about issue
+
+Work to be done
+    Tristan Lotivio
+        Project Due 04/07/2021
+    Darien Kidwell
+	Test Report Due 04/05/2021
+	Project Due 04/07/2021
+
+Meet deadline
+    Tristan Lotivio
+        Yes, the programmer will be able to finish all reports by the given deadline.
+     Darien Kidwell
+        Yes, the tester will be able to finish the Test Report by the deadline.
