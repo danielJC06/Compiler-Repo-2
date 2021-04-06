@@ -9,7 +9,7 @@ Progress
     Tristan Lotivio
         All programming for major required fields is complete outside of the if expression
     Darien Kidwell
-        Initial Test cases, mentioned in the last time log, have been submitted
+        Test Report is completed outside of three constructs involving function declarations and calls.
 
 Challenging Issues
     have emailed professor about issue
@@ -18,11 +18,12 @@ Work to be done
     Tristan Lotivio
         Project Due 04/07/2021
     Darien Kidwell
-	Test Report Due 04/05/2021
+        Run through testing again once challenging issue is resolved
 	Project Due 04/07/2021
 
 Meet deadline
     Tristan Lotivio
         Yes, the programmer will be able to finish all reports by the given deadline.
      Darien Kidwell
-        Yes, the tester will be able to finish the Test Report by the deadline.
+        Yes, the tester will be able to finish all testing to complete the test report 
+        by the project deadline.
