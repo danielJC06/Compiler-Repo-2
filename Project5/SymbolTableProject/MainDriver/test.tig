@@ -5,13 +5,13 @@
        column after you have designed all test cases successfully.
        
         Tiger Construct to be covered                                            Line # of the statement
-     Two variables with the same name are defined at the same level                      #21, 22
-     Two types with the same name are defined at the same level                          #23, 24
-     Two variables with the same name are defined at the different nesting levels        #25, 29
-     Two types with the same name are defined at the different nesting levels            #26, 30
-     An undefined variable is used                                                       #35
-     An undefined type is used                                                           #36
-     An undefined variable is used in function parameter list                            #37
+     Two variables with the same name are defined at the same level                      #20, 21
+     Two types with the same name are defined at the same level                          #22, 23
+     Two variables with the same name are defined at the different nesting levels        #24, 28
+     Two types with the same name are defined at the different nesting levels            #25, 29
+     An undefined variable is used                                                       #34
+     An undefined type is used                                                           #35
+     An undefined variable is used in function parameter list                            #36
 */
 
 /*Put your tiger program here*/
