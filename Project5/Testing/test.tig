@@ -1,39 +1,41 @@
-/* This is the test case file. Here is the requirement:
+/* 
+    TEAM: Daniel Cox, Tristan Lotivio, Darien Kidwell
+    Due Date: 4/7/2021 (Project Due date)
+    Desc: This test.tig file is used for testing the implementation of Project 5 by Tristan Lotivio
+    
+    This is the test case file. Here is the requirement:
     1. The test case file must be a valid Tiger program. No syntax errors allowed.
     2. The table below has two columns. The first column specifies Tiger construct that must be covered, and
        the second column gives the line # of the statement that is used to test the construct. Please fill the second
        column after you have designed all test cases successfully.
        
         Tiger Construct to be covered                                            Line # of the statement
-     Two variables with the same name are defined at the same level                      #21, 22
-     Two types with the same name are defined at the same level                          #23, 24
-     Two variables with the same name are defined at the different nesting levels        #25, 29
-     Two types with the same name are defined at the different nesting levels            #26, 30
-     An undefined variable is used                                                       #35
-     An undefined type is used                                                           #36
-     An undefined variable is used in function parameter list                            #37
+     Two variables with the same name are defined at the same level                      #25, 26
+     Two types with the same name are defined at the same level                          #28, 29
+     Two variables with the same name are defined at the different nesting levels        #27, 33
+     Two types with the same name are defined at the different nesting levels            #30, 34
+     An undefined variable is used                                                       #38
+     An undefined type is used                                                           #39
+     An undefined variable is used in function parameter list                            #40
 */
 
 /*Put your tiger program here*/
 
-
 let
-   var A := 1
-   var A := 3
+   var a := 1
+   var a := 3
+   var b := 2
    type thisarray = array of int
    type thisarray = array of string
-   var B := 2
-   type myarray = array of string 
-   function nAdd(n: int): int =
-   	        let
-                   var B := 4
-                   type myarray = array of int
-                in
-                   n + B
-                end
-in
-   D := D + 3;
-   undefined[B] of 7
-   nAdd(C)
-
+   type myarray = array of string
+in 
+   let
+      var b := 4
+      type myarray = array of int
+   in
+      /* do nothing */
+   end;
+   d := d + 5;
+   undefined[b] of 7;
+   print(c)
 end
